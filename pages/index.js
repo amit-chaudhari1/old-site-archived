@@ -72,7 +72,7 @@ const Home = ({ projects }) => (
 									description={projects.fields.description}
 									logo={projects.fields.logo}
 									link={projects.fields.link}
-									type={projects.fields.type}
+									types={projects.fields.types}
 								/>
 							))}
 						</SimpleGrid>

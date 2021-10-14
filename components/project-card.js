@@ -6,6 +6,9 @@ import {
 	useColorModeValue,
 	Tag,
 	TagLabel,
+	Avatar,
+	Wrap,
+	WrapItem,
 	TagRightIcon,
 	Box,
 	AspectRatio,
@@ -15,18 +18,9 @@ import {
 import Image from "./image";
 import { usePalette } from "react-palette";
 
-const ProjectCard = ({ name, description, logo, link, type }) => {
+const ProjectCard = ({ name, description, logo, link, types }) => {
 	const { data, loading, error } = usePalette(logo);
 
-	const getTypeColor = (type) => {
-		if (type === "Web App") {
-			return "teal";
-		} else if (type === "Extension") {
-			return "blue";
-		} else if (type === "Community") {
-			return "orange";
-		}
-	};
 
 	return (
 		<Link href={link} isExternal>
@@ -45,31 +39,11 @@ const ProjectCard = ({ name, description, logo, link, type }) => {
 				transition-timing-function="spring(1 100 10 10)"
 				_hover={{ transform: "translateY(-4px)", shadow: "sm" }}
 			>
-				<Box
-					rounded="lg"
-					p={2}
-					position="relative"
-					overflow="hidden"
-					lineHeight={0}
-					boxShadow="inset 0 0 1px 1px rgba(0, 0, 0, 0.04)"
-				>
-					<Box
-						bg={data.lightVibrant}
-						position="absolute"
-						top={0}
-						bottom={0}
-						left={0}
-						right={0}
-						opacity={0.25}
-					></Box>
-					<Image
-						src={logo ? logo : "/"}
-						height={36}
-						width={36}
-						layout="fixed"
-						rounded="md"
-					></Image>
-				</Box>
+				<Wrap>
+					<WrapItem>
+						<Avatar name={name} src={logo}/>
+					</WrapItem>
+					</Wrap>
 
 				<VStack align="start" justify="flex-start" spacing={1}>
 					<VStack spacing={0} align="start">
@@ -77,9 +51,12 @@ const ProjectCard = ({ name, description, logo, link, type }) => {
 							<Text fontWeight="bold" fontSize="md" noOfLines={2}>
 								{name}
 							</Text>
-							<Tag size="sm" colorScheme={getTypeColor(type)}>
+							{/* <Tag size="sm" coolorScheme="teal"> </Tag> */}
+							{types.map((type)=>( 
+							<Tag size="sm" colorScheme="teal">
 								{type}
 							</Tag>
+							))}
 						</HStack>
 
 						<Text
